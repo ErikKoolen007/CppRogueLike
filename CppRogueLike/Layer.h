@@ -29,5 +29,7 @@ public:
 	void set_end(Room& end);
 
 	void generate_random_layer();
+	static const char* print_character(int state);
+	void draw_layer(int player_room_number) const;
 };
 

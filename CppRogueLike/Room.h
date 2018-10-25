@@ -4,12 +4,14 @@ class Hallway;
 
 class Room
 {
-	// States: 0 = starting point, 1 = visiting, 2 = visited, 3 = not visited, 4 = end point.
+	// States: 0 = starting point, 1 = visiting, 2 = visited, 3 = not visited, 4 = end point, 5 = stair down, 6 = stair up.
 	int state_;
 	// Dungeon has more than one layer, this states what level/layer the room is on.
 	int level_;
 	// Room number
 	int number_;
+
+	size_t number_of_hallways_ = 6;
 
 	/*hallways_[0] = north_hall
 	hallways_[1] = east_hall
@@ -24,7 +26,7 @@ public:
 	{
 	}
 
-	Room(int state, int level, int number) : state_{ state }, level_{ level }, number_{ number }, hallways_{new Hallway[6]}
+	Room(int state, int level, int number) : state_{ state }, level_{ level }, number_{ number }, hallways_{ new Hallway[number_of_hallways_] }
 	{
 	}
 
@@ -34,7 +36,7 @@ public:
 	}
 
 	//Copy constructor
-	Room(const Room &r) : state_{ r.state_ }, level_{ r.level_ }, number_{ r.number_ }, hallways_{ new Hallway[6] }
+	Room(const Room &r) : state_{ r.state_ }, level_{ r.level_ }, number_{ r.number_ }, hallways_{ new Hallway[number_of_hallways_] }
 	{
 		for (int i = 0; i < 6; i++) {
 			hallways_[i] = r.hallways_[i];
@@ -52,7 +54,7 @@ public:
 		state_ = r.state_;
 		level_ = r.level_;
 		number_ = r.number_;
-		hallways_ = new Hallway[6];
+		hallways_ = new Hallway[number_of_hallways_];
 
 		return *this;
 	}
@@ -86,6 +88,8 @@ public:
 	int get_state() const;
 	int get_level() const;
 	int get_number() const;
+	size_t get_number_of_hallways() const;
 	Hallway* get_hallway(int index) const;
+	Hallway* get_hallway_array() const;
 	void set_state(int state);
 };

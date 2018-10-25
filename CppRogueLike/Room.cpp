@@ -16,9 +16,19 @@ int Room::get_number() const
 	return number_;
 }
 
+size_t Room::get_number_of_hallways() const
+{
+	return number_of_hallways_;
+}
+
 Hallway* Room::get_hallway(int index) const
 {
 	return &hallways_[index];
+}
+
+Hallway* Room::get_hallway_array() const
+{
+	return hallways_;
 }
 
 void Room::set_state(int state)

@@ -23,5 +23,6 @@ public:
 	int get_level() const;
 	Room* get_from_room() const;
 	Room* get_to_room() const;
+	void set_level(int level);
 };
 

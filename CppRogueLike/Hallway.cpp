@@ -14,3 +14,8 @@ Room* Hallway::get_to_room() const
 {
 	return to_room_;
 }
+
+void Hallway::set_level(int level)
+{
+	level_ = level;
+}
