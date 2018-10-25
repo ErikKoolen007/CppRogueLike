@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Dungeon.h" />
     <ClInclude Include="Hallway.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="pch.h" />
@@ -159,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppRogueLike.cpp" />
+    <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="Hallway.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="pch.cpp">

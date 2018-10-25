@@ -3,19 +3,24 @@
 #include "Hallway.h"
 #include <iostream>
 
-const Room* Layer::get_start() const
+Room* Layer::get_start() const
 {
 	return start_;
 }
 
-const Room* Layer::get_end() const
+Room* Layer::get_end() const
 {
 	return end_;
 }
 
-const Room* Layer::get_rooms() const
+Room* Layer::get_rooms() const
 {
 	return rooms_;
+}
+
+size_t Layer::get_number_of_rooms() const
+{
+	return number_of_rooms_;
 }
 
 void Layer::set_start(Room& start)
@@ -70,16 +75,6 @@ void Layer::generate_random_layer()
 		start_ = &rooms_[Utilities::get_random(0, x_ * y_ - 1)];
 		start_->set_state(0);
 	}
-	
-	////Create end
-	//end_ = &rooms_[Utilities::get_random(0, x_ * y_ - 1)];
-
-	////If start == end -> find another end
-	//while (end_->get_number() == start_->get_number())
-	//{
-	//	end_ = &rooms_[Utilities::get_random(0, x_ * y_ - 1)];
-	//}
-	//end_->set_state(4);
 }
 
 const char* Layer::print_character(int state)
@@ -121,10 +116,10 @@ void Layer::draw_layer(int player_room_number) const
 	char x_empty[5] = "    ";
 
 	/*for (int j = 0; j < 5; j++) {
-		auto test = rooms_[j];
-		for (size_t i = 0; i < 6; i++)
+		Room* test = &rooms_[Utilities::get_random(0, x_ * y_ - 1)];
+		for (size_t i = 0; i < test->get_number_of_hallways(); i++)
 		{
-			test.get_hallway_array()[i].set_level(0);
+			test->get_hallway_array()[i].set_level(0);
 		}
 	}*/
 	for (int row{}; row < y_; row++)

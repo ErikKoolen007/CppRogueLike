@@ -11,7 +11,7 @@ class Room
 	// Room number
 	int number_;
 
-	size_t number_of_hallways_ = 6;
+	size_t number_of_hallways_;
 
 	/*hallways_[0] = north_hall
 	hallways_[1] = east_hall
@@ -22,11 +22,12 @@ class Room
 	Hallway *hallways_;
 
 public:
-	Room() : state_{}, level_{}, number_{}, hallways_{nullptr}
+	Room() : state_{}, level_{}, number_{}, number_of_hallways_{}, hallways_{ nullptr }
 	{
 	}
 
-	Room(int state, int level, int number) : state_{ state }, level_{ level }, number_{ number }, hallways_{ new Hallway[number_of_hallways_] }
+	Room(int state, int level, int number) : state_{state}, level_{level}, number_{number}, number_of_hallways_(6),
+	                                         hallways_{new Hallway[number_of_hallways_]}
 	{
 	}
 
@@ -36,9 +37,11 @@ public:
 	}
 
 	//Copy constructor
-	Room(const Room &r) : state_{ r.state_ }, level_{ r.level_ }, number_{ r.number_ }, hallways_{ new Hallway[number_of_hallways_] }
+	Room(const Room &r) : state_{r.state_}, level_{r.level_}, number_{r.number_}, number_of_hallways_(r.number_of_hallways_),
+	                      hallways_{new Hallway[r.number_of_hallways_]}
 	{
-		for (int i = 0; i < 6; i++) {
+		for (size_t i = 0; i < r.number_of_hallways_; i++)
+		{
 			hallways_[i] = r.hallways_[i];
 		}
 	}
@@ -54,15 +57,17 @@ public:
 		state_ = r.state_;
 		level_ = r.level_;
 		number_ = r.number_;
-		hallways_ = new Hallway[number_of_hallways_];
+		number_of_hallways_ = r.number_of_hallways_;
+		hallways_ = new Hallway[r.number_of_hallways_];
 
 		return *this;
 	}
 
 	//Move constructor
-	Room(Room &&r) noexcept :state_{ r.state_ }, level_{ r.level_ }, number_{ r.number_ }, hallways_{ r.hallways_ }
+	Room(Room &&r) noexcept : state_{r.state_}, level_{r.level_}, number_{r.number_}, number_of_hallways_(r.number_of_hallways_),
+	                          hallways_{r.hallways_}
 	{
-		r.state_ = r.level_ = r.number_ = 0;
+		r.state_ = r.level_ = r.number_ = r.number_of_hallways_ = 0;
 		r.hallways_ = nullptr;
 	}
 
@@ -77,9 +82,10 @@ public:
 		state_ = r.state_;
 		level_ = r.level_;
 		number_ = r.number_;
+		number_of_hallways_ = r.number_of_hallways_;
 		hallways_ = r.hallways_;
 
-		r.state_ = r.level_ = r.number_ = 0;
+		r.state_ = r.level_ = r.number_ = r.number_of_hallways_ = 0;
 		r.hallways_ = nullptr;
 
 		return *this;
