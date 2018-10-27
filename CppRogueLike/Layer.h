@@ -88,7 +88,8 @@ public:
 
 	Room* get_start() const;
 	Room* get_end() const;
-	Room* get_rooms() const;
+	int get_layer_nr() const;
+	Room* get_room(int index) const;
 	size_t get_number_of_rooms() const;
 	void set_start(Room& start);
 	void set_end(Room& end);

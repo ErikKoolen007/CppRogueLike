@@ -26,11 +26,6 @@ Hallway* Room::get_hallway(int index) const
 	return &hallways_[index];
 }
 
-Hallway* Room::get_hallway_array() const
-{
-	return hallways_;
-}
-
 void Room::set_state(int state)
 {
 	state_ = state;

@@ -13,9 +13,14 @@ Room* Layer::get_end() const
 	return end_;
 }
 
-Room* Layer::get_rooms() const
+int Layer::get_layer_nr() const
 {
-	return rooms_;
+	return layer_nr_;
+}
+
+Room* Layer::get_room(int index) const
+{
+	return &rooms_[index];
 }
 
 size_t Layer::get_number_of_rooms() const
@@ -119,7 +124,7 @@ void Layer::draw_layer(int player_room_number) const
 		Room* test = &rooms_[Utilities::get_random(0, x_ * y_ - 1)];
 		for (size_t i = 0; i < test->get_number_of_hallways(); i++)
 		{
-			test->get_hallway_array()[i].set_level(0);
+			test->get_hallway(i)->set_level(0);
 		}
 	}*/
 	for (int row{}; row < y_; row++)

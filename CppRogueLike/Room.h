@@ -96,6 +96,5 @@ public:
 	int get_number() const;
 	size_t get_number_of_hallways() const;
 	Hallway* get_hallway(int index) const;
-	Hallway* get_hallway_array() const;
 	void set_state(int state);
 };
