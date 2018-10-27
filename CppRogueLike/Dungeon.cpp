@@ -7,7 +7,7 @@ Layer* Dungeon::get_layer(int index) const
 	return &layers_[index];
 }
 
-void Dungeon::generate_dungeon()
+void Dungeon::generate_dungeon() const
 {
 	for (size_t i = 0; i < number_of_layers_; i++)
 	{

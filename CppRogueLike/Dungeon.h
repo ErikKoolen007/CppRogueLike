@@ -18,7 +18,7 @@ public:
 	}
 
 	Layer* get_layer(int index) const;
-	void generate_dungeon();
+	void generate_dungeon() const;
 	void display_map(int player_layer_nr, int player_room_nr) const;
 	void debug_print() const;
 };
