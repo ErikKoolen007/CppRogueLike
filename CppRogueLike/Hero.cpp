@@ -31,6 +31,16 @@ int Hero::get_evasion() const
 	return evasion_;
 }
 
+int Hero::get_layer_number() const
+{
+	return layer_number_;
+}
+
+int Hero::get_room_number() const
+{
+	return  room_number_;
+}
+
 void Hero::level_up()
 {
 	if(level_ < 10)
@@ -64,6 +74,16 @@ void Hero::add_accuracy(int amount)
 void Hero::add_evasion(int amount)
 {
 	evasion_ += amount;
+}
+
+void Hero::set_layer_number(int number)
+{
+	layer_number_ = number;
+}
+
+void Hero::set_room_number(int number)
+{
+	room_number_ = number;
 }
 
 void Hero::print_hero_info() const

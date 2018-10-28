@@ -23,7 +23,7 @@ Room* Layer::get_room(int index) const
 	return &rooms_[index];
 }
 
-size_t Layer::get_number_of_rooms() const
+int Layer::get_number_of_rooms() const
 {
 	return number_of_rooms_;
 }
@@ -46,8 +46,8 @@ void Layer::generate_random_layer()
 	{
 		for (int column{}; column < x_; column++)
 		{
-			//Create rooms with a state, layer number and room number
-			rooms_[row * x_ + column] = Room{ 3, layer_nr_, number };
+			//Create rooms with a state, layer number, room number and random description numbers
+			rooms_[row * x_ + column] = Room{ 3, layer_nr_, number, Utilities::get_random(1,3), Utilities::get_random(1,3), Utilities::get_random(1,2)};
 			number++;
 
 			//Create hallways
@@ -122,7 +122,7 @@ void Layer::draw_layer(int player_room_number) const
 
 	/*for (int j = 0; j < 5; j++) {
 		Room* test = &rooms_[Utilities::get_random(0, x_ * y_ - 1)];
-		for (size_t i = 0; i < test->get_number_of_hallways(); i++)
+		for (int i = 0; i < test->get_number_of_hallways(); i++)
 		{
 			test->get_hallway(i)->set_level(0);
 		}

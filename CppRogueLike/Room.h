@@ -11,7 +11,10 @@ class Room
 	// Room number
 	int number_;
 
-	size_t number_of_hallways_;
+	int random_room_size_;
+	int random_room_furniture_;
+	int random_room_cleanliness_;
+	int number_of_hallways_;
 
 	/*hallways_[0] = north_hall
 	hallways_[1] = east_hall
@@ -22,12 +25,16 @@ class Room
 	Hallway *hallways_;
 
 public:
-	Room() : state_{}, level_{}, number_{}, number_of_hallways_{}, hallways_{ nullptr }
+	Room() : state_{}, level_{}, number_{}, random_room_size_{}, random_room_furniture_{}, random_room_cleanliness_{},
+	         number_of_hallways_{},
+	         hallways_{nullptr}
 	{
 	}
 
-	Room(int state, int level, int number) : state_{state}, level_{level}, number_{number}, number_of_hallways_(6),
-	                                         hallways_{new Hallway[number_of_hallways_]}
+	Room(int state, int level, int number, int room_size, int room_furniture, int room_cleanliness) :
+		state_{state}, level_{level}, number_{number}, random_room_size_{ room_size },
+		random_room_furniture_{ room_furniture }, random_room_cleanliness_{ room_cleanliness },
+		number_of_hallways_{6}, hallways_{new Hallway[ number_of_hallways_]}
 	{
 	}
 
@@ -37,10 +44,13 @@ public:
 	}
 
 	//Copy constructor
-	Room(const Room &r) : state_{r.state_}, level_{r.level_}, number_{r.number_}, number_of_hallways_(r.number_of_hallways_),
-	                      hallways_{new Hallway[r.number_of_hallways_]}
+	Room(const Room &r) : state_{r.state_}, level_{r.level_}, number_{r.number_},
+	                      random_room_size_{r.random_room_size_}, random_room_furniture_{r.random_room_furniture_},
+						  random_room_cleanliness_{r.random_room_cleanliness_ },
+						  number_of_hallways_{ r.number_of_hallways_ },
+	                      hallways_{ new Hallway[r.number_of_hallways_] }
 	{
-		for (size_t i = 0; i < r.number_of_hallways_; i++)
+		for (int i = 0; i < r.number_of_hallways_; i++)
 		{
 			hallways_[i] = r.hallways_[i];
 		}
@@ -57,6 +67,9 @@ public:
 		state_ = r.state_;
 		level_ = r.level_;
 		number_ = r.number_;
+		random_room_size_ = r.random_room_size_;
+		random_room_furniture_ = r.random_room_furniture_;
+		random_room_cleanliness_ = r.random_room_cleanliness_;
 		number_of_hallways_ = r.number_of_hallways_;
 		hallways_ = new Hallway[r.number_of_hallways_];
 
@@ -64,10 +77,15 @@ public:
 	}
 
 	//Move constructor
-	Room(Room &&r) noexcept : state_{r.state_}, level_{r.level_}, number_{r.number_}, number_of_hallways_(r.number_of_hallways_),
+	Room(Room &&r) noexcept : state_{r.state_}, level_{r.level_}, number_{r.number_},
+	                          random_room_size_{r.random_room_size_}, random_room_furniture_{r.random_room_furniture_},
+							  random_room_cleanliness_{ r.random_room_cleanliness_ },
+	                          number_of_hallways_(r.number_of_hallways_),
 	                          hallways_{r.hallways_}
 	{
-		r.state_ = r.level_ = r.number_ = r.number_of_hallways_ = 0;
+		r.state_ = r.level_ = r.number_ = 0;
+		r.random_room_size_ = r.random_room_furniture_ = r.random_room_cleanliness_ = 0;
+		r.number_of_hallways_ = {};
 		r.hallways_ = nullptr;
 	}
 
@@ -82,10 +100,15 @@ public:
 		state_ = r.state_;
 		level_ = r.level_;
 		number_ = r.number_;
+		random_room_size_ = r.random_room_size_;
+		random_room_furniture_ = r.random_room_furniture_;
+		random_room_cleanliness_ = r.random_room_cleanliness_;
 		number_of_hallways_ = r.number_of_hallways_;
 		hallways_ = r.hallways_;
 
-		r.state_ = r.level_ = r.number_ = r.number_of_hallways_ = 0;
+		r.state_ = r.level_ = r.number_ = 0;
+		r.random_room_size_ = r.random_room_furniture_ = r.random_room_cleanliness_ = 0;
+		r.number_of_hallways_ = {};
 		r.hallways_ = nullptr;
 
 		return *this;
@@ -94,7 +117,10 @@ public:
 	int get_state() const;
 	int get_level() const;
 	int get_number() const;
-	size_t get_number_of_hallways() const;
+	int get_random_room_size() const;
+	int get_random_room_furniture() const;
+	int get_random_room_cleanliness() const;
+	int get_number_of_hallways() const;
 	Hallway* get_hallway(int index) const;
 	void set_state(int state);
 };

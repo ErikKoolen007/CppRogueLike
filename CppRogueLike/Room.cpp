@@ -16,7 +16,22 @@ int Room::get_number() const
 	return number_;
 }
 
-size_t Room::get_number_of_hallways() const
+int Room::get_random_room_size() const
+{
+	return random_room_size_;
+}
+
+int Room::get_random_room_furniture() const
+{
+	return random_room_furniture_;
+}
+
+int Room::get_random_room_cleanliness() const
+{
+	return random_room_cleanliness_;
+}
+
+int Room::get_number_of_hallways() const
 {
 	return number_of_hallways_;
 }

@@ -6,7 +6,7 @@ class Layer
 	int x_;
 	int y_;
 	int layer_nr_;
-	size_t number_of_rooms_;
+	int number_of_rooms_;
 	Room* start_;
 	Room* end_;
 	Room* rooms_;
@@ -32,7 +32,7 @@ public:
 	Layer(const Layer &l) : x_{ l.x_ }, y_{ l.y_ }, layer_nr_{ l.layer_nr_ }, number_of_rooms_{ l.number_of_rooms_ },
 							start_{ l.start_ }, end_{ l.end_ }, rooms_{ new Room[l.number_of_rooms_] }
 	{
-		for (size_t i = 0; i < l.number_of_rooms_; i++) {
+		for (int i = 0; i < l.number_of_rooms_; i++) {
 			rooms_[i] = l.rooms_[i];
 		}
 	}
@@ -60,7 +60,8 @@ public:
 	Layer(Layer &&l) noexcept : x_{ l.x_ }, y_{ l.y_ }, layer_nr_{ l.layer_nr_ }, number_of_rooms_{ l.number_of_rooms_ },
 								start_{ l.start_ }, end_{ l.end_ }, rooms_{ l.rooms_ }
 	{
-		l.x_ = l.y_ = l.layer_nr_ = l.number_of_rooms_ = 0;
+		l.x_ = l.y_ = l.layer_nr_ = 0;
+		l.number_of_rooms_ = {};
 		l.start_ = l.end_ = l.rooms_ = nullptr;
 	}
 
@@ -80,7 +81,8 @@ public:
 		end_ = l.end_;
 		rooms_ = l.rooms_;
 
-		l.x_ = l.y_ = l.layer_nr_ = l.number_of_rooms_ = 0;
+		l.x_ = l.y_ = l.layer_nr_ = 0;
+		l.number_of_rooms_ = {};
 		l.start_ = l.end_ = l.rooms_ = nullptr;
 
 		return *this;
@@ -90,7 +92,7 @@ public:
 	Room* get_end() const;
 	int get_layer_nr() const;
 	Room* get_room(int index) const;
-	size_t get_number_of_rooms() const;
+	int get_number_of_rooms() const;
 	void set_start(Room& start);
 	void set_end(Room& end);
 
