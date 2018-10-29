@@ -15,6 +15,7 @@ class Room
 	int random_room_furniture_;
 	int random_room_cleanliness_;
 	int number_of_hallways_;
+	int item_id_;
 
 	/*hallways_[0] = north_hall
 	hallways_[1] = east_hall
@@ -26,15 +27,15 @@ class Room
 
 public:
 	Room() : state_{}, level_{}, number_{}, random_room_size_{}, random_room_furniture_{}, random_room_cleanliness_{},
-	         number_of_hallways_{},
+			 number_of_hallways_{}, item_id_{},
 	         hallways_{nullptr}
 	{
 	}
 
-	Room(int state, int level, int number, int room_size, int room_furniture, int room_cleanliness) :
-		state_{state}, level_{level}, number_{number}, random_room_size_{ room_size },
-		random_room_furniture_{ room_furniture }, random_room_cleanliness_{ room_cleanliness },
-		number_of_hallways_{6}, hallways_{new Hallway[ number_of_hallways_]}
+	Room(int state, int level, int number, int item_id, int room_size, int room_furniture, int room_cleanliness) :
+		state_{state}, level_{level}, number_{number}, random_room_size_{room_size},
+		random_room_furniture_{room_furniture}, random_room_cleanliness_{room_cleanliness},
+		number_of_hallways_{ 6 }, item_id_{ item_id }, hallways_{ new Hallway[number_of_hallways_] }
 	{
 	}
 
@@ -46,9 +47,9 @@ public:
 	//Copy constructor
 	Room(const Room &r) : state_{r.state_}, level_{r.level_}, number_{r.number_},
 	                      random_room_size_{r.random_room_size_}, random_room_furniture_{r.random_room_furniture_},
-						  random_room_cleanliness_{r.random_room_cleanliness_ },
-						  number_of_hallways_{ r.number_of_hallways_ },
-	                      hallways_{ new Hallway[r.number_of_hallways_] }
+	                      random_room_cleanliness_{r.random_room_cleanliness_},
+		number_of_hallways_{ r.number_of_hallways_ }, item_id_{ r.item_id_ },
+	                      hallways_{new Hallway[r.number_of_hallways_]}
 	{
 		for (int i = 0; i < r.number_of_hallways_; i++)
 		{
@@ -71,6 +72,7 @@ public:
 		random_room_furniture_ = r.random_room_furniture_;
 		random_room_cleanliness_ = r.random_room_cleanliness_;
 		number_of_hallways_ = r.number_of_hallways_;
+		item_id_ = r.item_id_;
 		hallways_ = new Hallway[r.number_of_hallways_];
 
 		return *this;
@@ -79,11 +81,11 @@ public:
 	//Move constructor
 	Room(Room &&r) noexcept : state_{r.state_}, level_{r.level_}, number_{r.number_},
 	                          random_room_size_{r.random_room_size_}, random_room_furniture_{r.random_room_furniture_},
-							  random_room_cleanliness_{ r.random_room_cleanliness_ },
-	                          number_of_hallways_(r.number_of_hallways_),
+	                          random_room_cleanliness_{r.random_room_cleanliness_},
+							  number_of_hallways_(r.number_of_hallways_), item_id_{ r.item_id_ },
 	                          hallways_{r.hallways_}
 	{
-		r.state_ = r.level_ = r.number_ = 0;
+		r.state_ = r.level_ = r.number_ = r.item_id_ = 0;
 		r.random_room_size_ = r.random_room_furniture_ = r.random_room_cleanliness_ = 0;
 		r.number_of_hallways_ = {};
 		r.hallways_ = nullptr;
@@ -104,9 +106,10 @@ public:
 		random_room_furniture_ = r.random_room_furniture_;
 		random_room_cleanliness_ = r.random_room_cleanliness_;
 		number_of_hallways_ = r.number_of_hallways_;
+		item_id_ = r.item_id_;
 		hallways_ = r.hallways_;
 
-		r.state_ = r.level_ = r.number_ = 0;
+		r.state_ = r.level_ = r.number_ = r.item_id_ = 0;
 		r.random_room_size_ = r.random_room_furniture_ = r.random_room_cleanliness_ = 0;
 		r.number_of_hallways_ = {};
 		r.hallways_ = nullptr;
@@ -121,6 +124,8 @@ public:
 	int get_random_room_furniture() const;
 	int get_random_room_cleanliness() const;
 	int get_number_of_hallways() const;
+	int get_item_id() const;
 	Hallway* get_hallway(int index) const;
 	void set_state(int state);
+	void pickup_item();
 };

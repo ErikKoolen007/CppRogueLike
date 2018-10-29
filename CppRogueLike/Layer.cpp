@@ -47,7 +47,7 @@ void Layer::generate_random_layer()
 		for (int column{}; column < x_; column++)
 		{
 			//Create rooms with a state, layer number, room number and random description numbers
-			rooms_[row * x_ + column] = Room{ 3, layer_nr_, number, Utilities::get_random(1,3), Utilities::get_random(1,3), Utilities::get_random(1,2)};
+			rooms_[row * x_ + column] = Room{ 3, layer_nr_, number, Utilities::get_random_item(), Utilities::get_random(1,3), Utilities::get_random(1,3), Utilities::get_random(1,2)};
 			number++;
 
 			//Create hallways
